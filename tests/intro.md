@@ -23,3 +23,37 @@ describe('Main', () => {
   });
 });
 ```
+
+# video 79 | mocha hooks
+
+```javascript
+describe('Main', () => {
+  // it runs once before the test
+  before(() => {
+    console.log('before');
+  });
+
+  // it runs once after the test
+  after(() => {
+    console.log('after');
+  });
+
+  // it runs every time, before every block
+  beforeEach(() => {
+    console.log('beforeEach');
+  });
+
+  // it runs every time, after every block
+  afterEach(() => {
+    console.log('afterEach');
+  });
+
+  it('test 1', () => {
+    console.log('test 1');
+  });
+
+  it('test 2', () => {
+    console.log('test 2');
+  });
+});
+```
