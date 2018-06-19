@@ -11,16 +11,16 @@ global.fetch = require('node-fetch');
 chai.use(sinonChai);
 
 describe('Spotify Wrapper', () => {
-  let fetchedStub;
+  let stubbedFetch;
 
   beforeEach(() => {
-    fetchedStub = sinon
+    stubbedFetch = sinon
       .stub(global, 'fetch')
       .returns(new Promise(() => {}));
   });
 
   afterEach(() => {
-    fetchedStub.restore();
+    stubbedFetch.restore();
   });
 
   describe('Smoke tests', () => {
@@ -54,29 +54,29 @@ describe('Spotify Wrapper', () => {
   describe('Generic search', () => {
     it('should call fetch function', () => {
       const artists = search();
-      expect(fetchedStub).to.have.been.calledOnce;
+      expect(stubbedFetch).to.have.been.calledOnce;
     });
 
     it('should receive the correct url to fetch', () => {
       context('passing one type', () => {
         const artists = search('Muse', 'artist');
-        expect(fetchedStub).to.have.been
+        expect(stubbedFetch).to.have.been
           .calledWith('https://api.spotify.com/v1/search?q=Muse&type=artist');
 
         const albums = search('Muse', 'album');
-        expect(fetchedStub).to.have.been
+        expect(stubbedFetch).to.have.been
           .calledWith('https://api.spotify.com/v1/search?q=Muse&type=album');
       });
 
       context('passing more than one type', () => {
         const artistAndAlbums = search('Muse', ['artist', 'album']);
-        expect(fetchedStub).to.have.been
+        expect(stubbedFetch).to.have.been
           .calledWith('https://api.spotify.com/v1/search?q=Muse&type=artist,album');
       });
     });
 
     it('should return the JSON Data from the promise', () => {
-      fetchedStub.resolves({ json: () => ({ body: 'json' }) });
+      stubbedFetch.resolves({ json: () => ({ body: 'json' }) });
 
       const artists = search('Muse', 'artist');
       artists.then(resolveValue => (
@@ -88,60 +88,60 @@ describe('Spotify Wrapper', () => {
   describe('searchAlbums', () => {
     it('should call fetch function', () => {
       const albums = searchAlbums('Muse');
-      expect(fetchedStub).to.have.been.calledOnce;
+      expect(stubbedFetch).to.have.been.calledOnce;
     });
 
     it('should call fetch with the correct url', () => {
       const albums = searchAlbums('Muse');
-      expect(fetchedStub).to.have.been.calledWith('https://api.spotify.com/v1/search?q=Muse&type=album');
+      expect(stubbedFetch).to.have.been.calledWith('https://api.spotify.com/v1/search?q=Muse&type=album');
 
       const albums2 = searchAlbums('Radiohead');
-      expect(fetchedStub).to.have.been.calledWith('https://api.spotify.com/v1/search?q=Radiohead&type=album');
+      expect(stubbedFetch).to.have.been.calledWith('https://api.spotify.com/v1/search?q=Radiohead&type=album');
     });
   });
 
   describe('searchArtists', () => {
     it('should call fetch function', () => {
       const artists = searchArtists('Muse');
-      expect(fetchedStub).to.have.been.calledOnce;
+      expect(stubbedFetch).to.have.been.calledOnce;
     });
 
     it('should call fetch with the correct url', () => {
       const artists = searchArtists('Muse');
-      expect(fetchedStub).to.have.been.calledWith('https://api.spotify.com/v1/search?q=Muse&type=artist');
+      expect(stubbedFetch).to.have.been.calledWith('https://api.spotify.com/v1/search?q=Muse&type=artist');
 
       const artists2 = searchArtists('Radiohead');
-      expect(fetchedStub).to.have.been.calledWith('https://api.spotify.com/v1/search?q=Radiohead&type=artist');
+      expect(stubbedFetch).to.have.been.calledWith('https://api.spotify.com/v1/search?q=Radiohead&type=artist');
     });
   });
 
   describe('searchTracks', () => {
     it('should call fetch function', () => {
       const tracks = searchTracks('Muse');
-      expect(fetchedStub).to.have.been.calledOnce;
+      expect(stubbedFetch).to.have.been.calledOnce;
     });
 
     it('should call fetch with the correct url', () => {
       const tracks = searchTracks('Muse');
-      expect(fetchedStub).to.have.been.calledWith('https://api.spotify.com/v1/search?q=Muse&type=track');
+      expect(stubbedFetch).to.have.been.calledWith('https://api.spotify.com/v1/search?q=Muse&type=track');
 
       const tracks2 = searchTracks('Radiohead');
-      expect(fetchedStub).to.have.been.calledWith('https://api.spotify.com/v1/search?q=Radiohead&type=track');
+      expect(stubbedFetch).to.have.been.calledWith('https://api.spotify.com/v1/search?q=Radiohead&type=track');
     });
   });
 
   describe('searchPlaylists', () => {
     it('should call fetch function', () => {
       const playlists = searchPlaylists('Muse');
-      expect(fetchedStub).to.have.been.calledOnce;
+      expect(stubbedFetch).to.have.been.calledOnce;
     });
 
     it('should call fetch with the correct url', () => {
       const playlists = searchPlaylists('Muse');
-      expect(fetchedStub).to.have.been.calledWith('https://api.spotify.com/v1/search?q=Muse&type=playlist');
+      expect(stubbedFetch).to.have.been.calledWith('https://api.spotify.com/v1/search?q=Muse&type=playlist');
 
       const playlists2 = searchPlaylists('Radiohead');
-      expect(fetchedStub).to.have.been.calledWith('https://api.spotify.com/v1/search?q=Radiohead&type=playlist');
+      expect(stubbedFetch).to.have.been.calledWith('https://api.spotify.com/v1/search?q=Radiohead&type=playlist');
     });
   });
 });
