@@ -1,6 +1,9 @@
-import { searchAlbums } from '../src/search';
+import SpotifyWrapper from '../src/index';
 
 global.fetch = require('node-fetch');
 
-const albums = searchAlbums('Muse');
+const spotify = new SpotifyWrapper({ token: '' });
+
+const albums = spotify.search.albums('Muse');
+
 albums.then(data => data.albums.items.map(item => console.log(item.name)));
