@@ -10,7 +10,7 @@ global.fetch = require('node-fetch');
 
 chai.use(sinonChai);
 
-describe('Spotify Wrapper', () => {
+describe('Search', () => {
   let stubbedFetch;
 
   beforeEach(() => {
