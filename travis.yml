@@ -1,6 +1,11 @@
 language: node_js
 node_js:
   - "10"
+
+branches:
+  except:
+    - master
+
 cache:
   directories
     "node_modules"
