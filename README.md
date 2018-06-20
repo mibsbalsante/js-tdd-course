@@ -1,5 +1,7 @@
 # Spotify Wrapper
 
+[![Build Status](https://travis-ci.org/mibsbalsante/js-tdd-course.svg?branch=spotify-wrapper)](https://travis-ci.org/mibsbalsante/js-tdd-course)
+
 A wrapper to work with the [Spotify Web API](https://developer.spotify.com/documentation/web-api/).
 
 ## Getting Started
